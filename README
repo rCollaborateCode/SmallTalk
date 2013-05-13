@@ -1,0 +1,16 @@
+*** Small Talk ***
+
+A Java Chat Client
+
+Planned Initial Features:
+- Username/Handle & Passwords
+- Active user list
+- Group creation
+- Multiple conversations
+- Group messaging
+- Open forum
+
+Future Features:
+- FTP Service
+- Encrypted messaging
+- Encrypted account information (kind of important)
