@@ -1,31 +1,79 @@
 package Server;
 
-import java.net.*;
+import java.io.BufferedInputStream;
+import java.io.DataInputStream;
+import java.io.DataOutputStream;
+import java.io.IOException;
+import java.net.DatagramPacket;
+import java.net.Socket;
 
 public class smalltalkServer extends Thread {
 
 	DatagramPacket pkt;
+	private Socket socket = null;
+	private SmallChatServer server = null;
+	private int ID;
+	private DataInputStream streamIn = null;
+	private DataOutputStream streamOut = null;
 
-	public smalltalkServer(DatagramPacket pkt) {
-		this.pkt = pkt;
+	/*
+	 * Constructor for smalltalkServer
+	 * Creates server
+	 */
+	public smalltalkServer(SmallChatServer server, Socket socket) {
+		this.server = server;
+		this.socket = socket;
+		ID = socket.getPort();
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * @see java.lang.Thread#run()
+	 */
 	public void run() {
-
-	}
-
-	public static void main(String [] args) {
-		try {
-			@SuppressWarnings("resource")
-			DatagramSocket srv = new DatagramSocket(9203);
-			while (true) {
-				byte [] buf = new byte[1024];
-				DatagramPacket pkt = new DatagramPacket(buf, 1024);
-				srv.receive(pkt);
-				new smalltalkServer(pkt).start();	
+		System.out.println("Server thread " + ID + " running...");
+		while(true){
+			try{
+				System.out.println(streamIn.readUTF());
+			}catch(Exception e){
+				e.printStackTrace();
 			}
-		} catch (Exception e) {
-			System.err.println(e);
 		}
+	}
+	
+	/*
+	 * Sends a message
+	 * Temporary method...must integrate with the Common package
+	 */
+	public void send(String msg){
+		try{
+			streamOut.writeUTF(msg);
+			streamOut.flush();
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+	}
+	
+	/*
+	 * Method for opening a new stream in
+	 */
+	public void open(){
+		try{
+			streamIn = new DataInputStream(new BufferedInputStream(socket.getInputStream()));
+		}catch (IOException e){
+			e.printStackTrace();
+		}
+	}
+	
+	/*
+	 * Method for closing the socket, streamIn, and streamOut
+	 */
+	public void close() throws IOException{
+		if(socket != null)
+			socket.close();
+		if(streamIn != null)
+			streamIn.close();
+		if(streamOut != null)
+			streamOut.close();
 	}
 }
