@@ -21,19 +21,21 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.Scanner;
 
 public class account{
 
-	public String email;
-	public String username;
-	public String password;
+	private String email;
+	private String username;
+	private String password;
 
 	// public String lastLogin;
 
 	/*
 	 * Creates an Account object.
-	 * Identifies its Username tht was passed in by loginHandler or Client.
+	 * Identifies its Username that was passed in by loginHandler or Client.
 	 * Fetches the rest of account info from accounts file afterwards.
 	 */
 
@@ -76,7 +78,7 @@ public class account{
 			while(accountFinder.hasNextLine()) {
 				if (accountFinder.nextLine().equals("email: " + email)) {
 					String userPassword = accountFinder.nextLine().toString();
-					this.username = userPassword.replace("usrername: ", ""); 
+					this.username = userPassword.replace("username: ", ""); 
 					String userIdentity = accountFinder.nextLine().toString();
 					this.password = userIdentity.replace("password: ", ""); 
 				}
@@ -159,5 +161,51 @@ public class account{
 
 		return "username: " + username + "\npassword: " + password
 				+ "\nemail: " + email;
+	}
+	
+	/*
+	 * Used to send password information to other classes
+	 * Parameters - none
+	 * Returns - password as a String
+	 * 
+	 */
+	
+	public String getPassword(){
+		return this.password;
+	}
+	
+	/*
+	 * 
+	 * Used to encrypt account information
+	 * Parameters - String that is to be encrypted
+	 * Returns - The encrypted string in hex format
+	 * 
+	 */
+	
+	public String hashPassword(String pass) throws NoSuchAlgorithmException{
+		MessageDigest mess = MessageDigest.getInstance("MD5");
+		mess.update(pass.getBytes());
+		byte digest[] = mess.digest();
+		return toHexString(digest);
+	}
+	
+	/*
+	 * 
+	 * Used to convert a byte array to hex
+	 * Parameters - byte array
+	 * Returns - String in hex format
+	 * 
+	 */
+	
+	private String toHexString(byte[] bytes) {
+	    final char[] hexArray = {'0','1','2','3','4','5','6','7','8','9','A','B','C','D','E','F'};
+	    char[] hexChars = new char[bytes.length * 2];
+	    int v;
+	    for ( int j = 0; j < bytes.length; j++ ) {
+	        v = bytes[j] & 0xFF;
+	        hexChars[j * 2] = hexArray[v >>> 4];
+	        hexChars[j * 2 + 1] = hexArray[v & 0x0F];
+	    }
+	    return new String(hexChars);
 	}
 }
