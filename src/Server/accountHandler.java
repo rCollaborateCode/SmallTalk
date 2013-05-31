@@ -1,12 +1,12 @@
-package Server;
+package server;
 
 import java.security.NoSuchAlgorithmException;
 
-public class accountHandler{
+public class AccountHandler{
  
-	public account loginAccount;
+	public Account loginAccount;
 
-	public accountHandler() {
+	public AccountHandler() {
 
 	}
 
@@ -28,7 +28,7 @@ public class accountHandler{
 		return false;
 	}
 	
-	public account forgotAccountHandler(String email) {
+	public Account forgotAccountHandler(String email) {
 		
 		if(loginAccount.doesAccountExist(email)) {
 			loginAccount.fetchAccountInfo(email);

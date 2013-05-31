@@ -15,7 +15,7 @@
  * For existing account information see accounts file.
  */
 
-package Server;
+package server;
 
 import java.io.BufferedWriter;
 import java.io.File;
@@ -25,7 +25,7 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.Scanner;
 
-public class account{
+public class Account{
 
 	private String email;
 	private String username;
@@ -39,7 +39,7 @@ public class account{
 	 * Fetches the rest of account info from accounts file afterwards.
 	 */
 
-	public account() {
+	public Account() {
 
 	}
 

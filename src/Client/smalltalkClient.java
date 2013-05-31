@@ -1,13 +1,14 @@
-package Client;
+package client;
 
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.Socket;
 
-import Server.ClientThread;
+import server.ClientThread;
 
- public class smalltalkClient implements Runnable{
+
+ public class SmalltalkClient implements Runnable{
 	
 	static int clientPort;
 	static int serverPort = 4242; //Random port number
@@ -28,7 +29,7 @@ import Server.ClientThread;
 		 * 	- Logging in
 		 * 	- Creating new account
 		 */
-		smalltalkClient client = new smalltalkClient();
+		SmalltalkClient client = new SmalltalkClient();
 		
 	}
 	
@@ -40,7 +41,7 @@ import Server.ClientThread;
 	 * Constructor for starting server
 	 * Opens the socket at hostName and starts the server
 	 */
-	public smalltalkClient(){
+	public SmalltalkClient(){
 		System.out.println("Establishing connection...");
 		try{
 			socket = new Socket(hostName, serverPort);

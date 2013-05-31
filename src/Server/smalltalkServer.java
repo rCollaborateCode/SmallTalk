@@ -1,4 +1,4 @@
-package Server;
+package server;
 
 import java.io.BufferedInputStream;
 import java.io.DataInputStream;
@@ -7,7 +7,7 @@ import java.io.IOException;
 import java.net.DatagramPacket;
 import java.net.Socket;
 
-public class smalltalkServer extends Thread {
+public class SmalltalkServer extends Thread {
 
 	DatagramPacket pkt;
 	private Socket socket = null;
@@ -20,7 +20,7 @@ public class smalltalkServer extends Thread {
 	 * Constructor for smalltalkServer
 	 * Creates server
 	 */
-	public smalltalkServer(SmallChatServer server, Socket socket) {
+	public SmalltalkServer(SmallChatServer server, Socket socket) {
 		this.server = server;
 		this.socket = socket;
 		ID = socket.getPort();
