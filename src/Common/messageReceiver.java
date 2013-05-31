@@ -1,5 +1,5 @@
-package Common;
+package common;
 
-public class messageReceiver {
+public class MessageReceiver {
 
 }
